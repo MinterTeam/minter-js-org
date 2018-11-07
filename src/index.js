@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {generateMnemonic} from 'minterjs-wallet';
-import {getPasswordToSend, getPasswordToStore, addressFromMnemonic, addressEncryptedFromMnemonic, encryptMnemonic, decryptMnemonic} from '~/src/utils';
+import {getPasswordToSend, getPasswordToStore, addressFromMnemonic, addressEncryptedFromMnemonic, encryptMnemonic, decryptMnemonic} from './utils';
 
 export {getPasswordToSend, getPasswordToStore, addressFromMnemonic, addressEncryptedFromMnemonic, encryptMnemonic, decryptMnemonic};
 
