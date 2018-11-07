@@ -1,0 +1,52 @@
+{
+  "name": "minter-js-org",
+  "version": "0.0.1",
+  "description": "Communicate with minter.org user database through it API",
+  "main": "src/index.js",
+  "files": [
+    "/src/"
+  ],
+  "scripts": {
+    "prepublishOnly": "npm run lint && npm run test",
+    "precommit": "npm run lint",
+    "lint": "eslint --ext .js ./src ./test",
+    "lint:fix": "eslint --ext .js ./src ./test --fix",
+    "test": "jest",
+    "coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MinterTeam/minter-js-org.git"
+  },
+  "keywords": [
+    "minter",
+    "blockchain",
+    "sdk",
+    "users"
+  ],
+  "author": "MinterTeam (https://github.com/MinterTeam)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MinterTeam/minter-js-org/issues"
+  },
+  "homepage": "https://github.com/MinterTeam/minter-org-sdk#readme",
+  "dependencies": {
+    "aes-js": "^3.1.1",
+    "axios": "^0.18.0",
+    "ethereumjs-util": "^6.0.0",
+    "minterjs-util": "0.0.6",
+    "minterjs-wallet": "^2.2.0",
+    "safe-buffer": "^5.1.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.6.0",
+    "babel-preset-env": "^1.7.0",
+    "coveralls": "^3.0.2",
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-import-resolver-alias": "^1.1.1",
+    "eslint-plugin-import": "^2.14.0",
+    "jest": "^23.6.0"
+  }
+}
