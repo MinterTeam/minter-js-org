@@ -39,9 +39,10 @@ export default function MinterOrg(options) {
      * @param {string} [data.language]
      * @param {UserAvatar} [data.avatar]
      * @param {boolean} login - should make login
+     * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<User|{confirmations: Array}>}
      */
-    this.register = function register(data, login) {
+    this.register = function register(data, login, axiosConfig) {
         // generate mnemonic if not specified
         const mnemonic = data.mnemonic ? data.mnemonic : generateMnemonic();
 
@@ -56,9 +57,9 @@ export default function MinterOrg(options) {
 
         if (login) {
             return new Promise((resolve, reject) => {
-                instance.post('register', userData)
+                instance.post('register', userData, axiosConfig)
                     .then(() => {
-                        this.login(data)
+                        this.login(data, axiosConfig)
                             .then((authData) => {
                                 resolve({
                                     ...authData,
@@ -70,7 +71,7 @@ export default function MinterOrg(options) {
                     .catch(reject);
             });
         } else {
-            return instance.post('register', userData)
+            return instance.post('register', userData, axiosConfig)
                 .then((response) => response.data.data);
         }
     };
@@ -78,8 +79,8 @@ export default function MinterOrg(options) {
     /**
      * @param username
      * @param password
-     * @param {AxiosRequestConfig} axiosConfig
-     * @return {Promise<User>}
+     * @param {AxiosRequestConfig} [axiosConfig]
+     * @return {Promise<User|{password: string}>}
      */
     this.login = function login({username, password}, axiosConfig) {
         const passwordToStore = getPasswordToStore(password);
@@ -97,7 +98,7 @@ export default function MinterOrg(options) {
 
     /**
      * Requires auth
-     * @param {AxiosRequestConfig} axiosConfig
+     * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<User>}
      */
     this.getProfile = function getProfile(axiosConfig) {
@@ -112,7 +113,7 @@ export default function MinterOrg(options) {
      * @param {string} [profile.name]
      * @param {string} [profile.email]
      * @param {string} [profile.language]
-     * @param {AxiosRequestConfig} axiosConfig
+     * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<{confirmations: Array}>}
      */
     this.updateProfile = function updateProfile(profile, axiosConfig) {
@@ -125,7 +126,7 @@ export default function MinterOrg(options) {
      * Requires auth
      * @param {string} oldPasswordToStore
      * @param {string} newPasswordToStore
-     * @param {AxiosRequestConfig} axiosConfig
+     * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<Array<Address>>}
      */
     this.updateProfilePassword = function updateProfilePassword(oldPasswordToStore, newPasswordToStore, axiosConfig) {
@@ -152,7 +153,7 @@ export default function MinterOrg(options) {
     /**
      * Requires auth
      * @param {Blob|File} avatar - image, max 0.5 MB, max 500x500
-     * @param {AxiosRequestConfig} axiosConfig
+     * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<UserAvatar>}
      */
     this.updateProfileAvatar = function updateProfileAvatar(avatar, axiosConfig) {
@@ -166,7 +167,7 @@ export default function MinterOrg(options) {
 
     /**
      * Requires auth
-     * @param {AxiosRequestConfig} axiosConfig
+     * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<UserAvatar>}
      */
     this.deleteProfileAvatar = function deleteProfileAvatar(axiosConfig) {
@@ -177,7 +178,7 @@ export default function MinterOrg(options) {
      * Get profile address by id without encrypted data
      * Requires auth
      * @param {number} id
-     * @param {AxiosRequestConfig} axiosConfig
+     * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<Address>}
      */
     this.getProfileAddress = function getProfileAddress(id, axiosConfig) {
@@ -189,7 +190,7 @@ export default function MinterOrg(options) {
      * Get profile address by id with encrypted data
      * Requires auth
      * @param {number} id
-     * @param {AxiosRequestConfig} axiosConfig
+     * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<Address>}
      */
     this.getProfileAddressEncrypted = function getProfileAddressEncrypted(id, axiosConfig) {
@@ -200,7 +201,7 @@ export default function MinterOrg(options) {
     /**
      * Requires auth
      * @param {Address} address
-     * @param {AxiosRequestConfig} axiosConfig
+     * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise}
      */
     this.addProfileAddress = function addProfileAddress(address, axiosConfig) {
@@ -211,7 +212,7 @@ export default function MinterOrg(options) {
      * Requires auth
      * @param {number} id
      * @param {Address} address
-     * @param {AxiosRequestConfig} axiosConfig
+     * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise}
      */
     this.updateProfileAddress = function updateProfileAddress(id, address, axiosConfig) {
@@ -221,7 +222,7 @@ export default function MinterOrg(options) {
     /**
      * Requires auth
      * @param {number} id
-     * @param {AxiosRequestConfig} axiosConfig
+     * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise}
      */
     this.deleteProfileAddress = function deleteProfileAddress(id, axiosConfig) {
@@ -231,7 +232,7 @@ export default function MinterOrg(options) {
     /**
      * Get addresses saved in profile without encrypted data
      * Requires auth
-     * @param {AxiosRequestConfig} axiosConfig
+     * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<Array<Address>>}
      */
     this.getProfileAddressList = function getProfileAddressList(axiosConfig) {
@@ -242,7 +243,7 @@ export default function MinterOrg(options) {
     /**
      * Get addresses saved in profile with encrypted data
      * Requires auth
-     * @param {AxiosRequestConfig} axiosConfig
+     * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<Array<Address>>}
      */
     this.getProfileAddressListEncrypted = function getProfileAddressListEncrypted(axiosConfig) {
