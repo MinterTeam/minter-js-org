@@ -6,10 +6,18 @@ import aesjs from 'aes-js';
 const MINTER_IV = prepareIV('Minter seed'); // 16 bytes, should be same on all clients
 
 
+/**
+ * @param {string} password
+ * @return {string} - password hash used to store and encrypt/decrypt mnemonics
+ */
 export function getPasswordToStore(password) {
     return getSha256Hex(password);
 }
 
+/**
+ * @param {string} storedPasswordHash
+ * @return {string} - hashed password hash used to send to the server and identificate user
+ */
 export function getPasswordToSend(storedPasswordHash) {
     return getSha256Hex(storedPasswordHash);
 }
