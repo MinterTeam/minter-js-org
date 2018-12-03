@@ -328,8 +328,6 @@ export default function MinterOrg(options) {
             })
             .then((response) => response.data.data);
     };
-
-
 }
 
 
