@@ -29,6 +29,7 @@ export default function MinterOrg(options) {
     };
 
     /**
+     * POST `register`
      * @param {Object} data
      * @param {string} data.username
      * @param {string} data.password
@@ -77,6 +78,7 @@ export default function MinterOrg(options) {
     };
 
     /**
+     * POST `login`
      * @param username
      * @param password
      * @param {AxiosRequestConfig} [axiosConfig]
@@ -98,6 +100,7 @@ export default function MinterOrg(options) {
 
     /**
      * Requires auth
+     * GET `profile`
      * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<User>}
      */
@@ -108,6 +111,7 @@ export default function MinterOrg(options) {
 
     /**
      * Requires auth
+     * PUT `profile`
      * @param profile
      * @param {string} [profile.username]
      * @param {string} [profile.name]
@@ -124,6 +128,8 @@ export default function MinterOrg(options) {
     /**
      * Update profile password and re encrypt stored mnemonics, return updated AddressList
      * Requires auth
+     * GET `addresses/encrypted`
+     * POST `profile/password'`
      * @param {string} oldPasswordToStore
      * @param {string} newPasswordToStore
      * @param {AxiosRequestConfig} [axiosConfig]
@@ -152,6 +158,7 @@ export default function MinterOrg(options) {
 
     /**
      * Requires auth
+     * POST `profile/avatar`
      * @param {Blob|File} avatar - image, max 0.5 MB, max 500x500
      * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<UserAvatar>}
@@ -167,6 +174,7 @@ export default function MinterOrg(options) {
 
     /**
      * Requires auth
+     * DELETE `profile/avatar`
      * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<UserAvatar>}
      */
@@ -177,6 +185,7 @@ export default function MinterOrg(options) {
     /**
      * Get profile address by id without encrypted data
      * Requires auth
+     * GET `addresses/{id}`
      * @param {number} id
      * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<Address>}
@@ -189,6 +198,7 @@ export default function MinterOrg(options) {
     /**
      * Get profile address by id with encrypted data
      * Requires auth
+     * GET `addresses/{id}/encrypted`
      * @param {number} id
      * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<Address>}
@@ -200,6 +210,7 @@ export default function MinterOrg(options) {
 
     /**
      * Requires auth
+     * POST `addresses`
      * @param {Address} address
      * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise}
@@ -210,6 +221,7 @@ export default function MinterOrg(options) {
 
     /**
      * Requires auth
+     * PUT `addresses/{id}`
      * @param {number} id
      * @param {Address} address
      * @param {AxiosRequestConfig} [axiosConfig]
@@ -221,6 +233,7 @@ export default function MinterOrg(options) {
 
     /**
      * Requires auth
+     * DELETE `addresses/{id}`
      * @param {number} id
      * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise}
@@ -232,6 +245,7 @@ export default function MinterOrg(options) {
     /**
      * Get addresses saved in profile without encrypted data
      * Requires auth
+     * GET `addresses`
      * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<Array<Address>>}
      */
@@ -241,8 +255,10 @@ export default function MinterOrg(options) {
     };
 
     /**
+     *
      * Get addresses saved in profile with encrypted data
      * Requires auth
+     * GET `addresses/encrypted`
      * @param {AxiosRequestConfig} [axiosConfig]
      * @return {Promise<Array<Address>>}
      */
@@ -252,13 +268,45 @@ export default function MinterOrg(options) {
     };
 
     /**
+     * GET `info/by/addresses`
+     * @param {string} address
+     * @param {AxiosRequestConfig} [axiosConfig]
+     * @return {Promise<UserInfo>}
+     */
+    this.getAddressInfo = function getAddressListInfo(address, axiosConfig) {
+        return instance
+            .get(`info/by/address/${address}`, {
+                ...axiosConfig,
+            })
+            .then((response) => response.data.data);
+    };
+
+    /**
+     * GET `info/by/addresses`
+     * @param {Array<string>} addressList
+     * @param {AxiosRequestConfig} [axiosConfig]
+     * @return {Promise<Array<UserInfo>>}
+     */
+    this.getAddressListInfo = function getAddressListInfo(addressList, axiosConfig) {
+        return instance
+            .get('info/by/addresses?perPage=99999', {
+                params: {
+                    addresses: addressList,
+                },
+                ...axiosConfig,
+            })
+            .then((response) => response.data.data);
+    };
+
+    /**
+     * GET `info/address/by/contact`
      * @param {Object} params
      * @param {string} [params.username]
      * @param {string} [params.email]
      * @param {AxiosRequestConfig} [axiosConfig]
-     * @return {Promise<Object>}
+     * @return {Promise<UserInfo>}
      */
-    this.getAddressInfo = function getAddressInfo(params, axiosConfig) {
+    this.getAddressInfoByContact = function getAddressInfoByContact(params, axiosConfig) {
         return instance
             .get('info/address/by/contact', {
                 params,
@@ -266,6 +314,22 @@ export default function MinterOrg(options) {
             })
             .then((response) => response.data.data);
     };
+
+    /**
+     * GET `info/by/username/{username}`
+     * @param {string} username
+     * @param {AxiosRequestConfig} [axiosConfig]
+     * @return {Promise<User>}
+     */
+    this.getUserInfo = function getAddressInfoByContact(username, axiosConfig) {
+        return instance
+            .get(`info/by/username/${username}`, {
+                ...axiosConfig,
+            })
+            .then((response) => response.data.data);
+    };
+
+
 }
 
 
@@ -296,6 +360,12 @@ function makeFormData(data) {
  * @property {string} language
  * @property {UserAvatar} avatar
  * @property {Address} mainAddress
+ */
+
+/**
+ * @typedef {Object} UserInfo
+ * @property {string} address
+ * @property {User} user
  */
 
 /**
