@@ -1,3 +1,6 @@
+## 0.2.1 - 2
+- fix paths
+
 ## 0.2.0 - 2019-02-06
 - **BREAKING** moved src files (index.js exports remained the same)
 - add utils to index.js export

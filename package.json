@@ -1,6 +1,6 @@
 {
   "name": "minter-js-org",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Communicate with minter.org user database through it API",
   "main": "src/index.js",
   "files": [

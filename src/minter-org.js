@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {generateMnemonic} from 'minterjs-wallet';
-import {addressEncryptedFromMnemonic, decryptMnemonic, encryptMnemonic, getPasswordToSend, getPasswordToStore} from '~/src/stash';
+import {addressEncryptedFromMnemonic, decryptMnemonic, encryptMnemonic, getPasswordToSend, getPasswordToStore} from './stash';
 
 /**
  * @param {AxiosRequestConfig} options
