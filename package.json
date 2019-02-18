@@ -1,6 +1,6 @@
 {
   "name": "minter-js-org",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Communicate with minter.org user database through it API",
   "main": "src/index.js",
   "files": [
@@ -34,23 +34,22 @@
   },
   "homepage": "https://github.com/MinterTeam/minter-org-sdk#readme",
   "dependencies": {
-    "aes-js": "^3.1.1",
+    "aes-js": "^3.1.2",
     "axios": "^0.18.0",
-    "ethereumjs-util": "^6.0.0",
-    "minterjs-util": "0.0.6",
-    "minterjs-wallet": "^2.2.0",
+    "ethereumjs-util": "^6.1.0",
+    "minterjs-wallet": "^2.2.2",
     "safe-buffer": "^5.1.2"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-jest": "^23.6.0",
-    "babel-preset-env": "^1.7.0",
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "babel-jest": "^24.1.0",
     "coveralls": "^3.0.2",
-    "eslint": "^5.8.0",
+    "eslint": "^5.14.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-import-resolver-alias": "^1.1.1",
-    "eslint-plugin-import": "^2.14.0",
-    "jest": "^23.6.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.16.0",
+    "jest": "^24.1.0",
     "pre-commit": "^1.2.2"
   }
 }

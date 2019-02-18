@@ -1,4 +1,4 @@
-import ethUtil from 'ethereumjs-util';
+import {toBuffer, setLengthRight, sha256} from 'ethereumjs-util';
 import aesjs from 'aes-js';
 
 
@@ -37,9 +37,9 @@ export function aesDecrypt(encrypted, key, IV) {
  * @return {Buffer|Array}
  */
 export function prepareIV(text) {
-    return ethUtil.setLengthRight(ethUtil.toBuffer(text), 16);
+    return setLengthRight(toBuffer(text), 16);
 }
 
 export function getSha256Hex(value) {
-    return ethUtil.sha256(value).toString('hex');
+    return sha256(value).toString('hex');
 }

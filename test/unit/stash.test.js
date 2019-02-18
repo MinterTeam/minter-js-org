@@ -1,6 +1,4 @@
-import crypto from 'crypto';
 import aesjs from 'aes-js';
-import ethUtil from 'ethereumjs-util';
 import {walletFromMnemonic, seedFromMnemonic, hdKeyFromSeed} from 'minterjs-wallet';
 import {
     getPasswordToStore,
