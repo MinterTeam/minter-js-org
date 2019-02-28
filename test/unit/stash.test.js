@@ -3,7 +3,7 @@ import {walletFromMnemonic, seedFromMnemonic, hdKeyFromSeed} from 'minterjs-wall
 import {
     getPasswordToStore,
     getPasswordToSend,
-} from '~/src/stash';
+} from '~/src';
 
 const mnemonic = 'exercise fantasy smooth enough arrive steak demise donkey true employ jealous decide blossom bind someone';
 const rawPassword = '123456';

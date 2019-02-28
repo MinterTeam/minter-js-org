@@ -5,7 +5,7 @@ import {
     aesEncrypt,
     getSha256Hex,
     prepareIV,
-} from '~/src/utils';
+} from '~/src';
 
 const mnemonic = 'exercise fantasy smooth enough arrive steak demise donkey true employ jealous decide blossom bind someone';
 const rawPassword = '123456';
