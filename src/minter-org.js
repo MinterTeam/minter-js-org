@@ -14,7 +14,6 @@ export default function MinterOrg(options) {
      * @param {TokenData} tokenData
      */
     this.setAuthToken = function setAuthToken(tokenData) {
-        instance.defaults.headers = JSON.parse(JSON.stringify(instance.defaults.headers)); // unset links from core object, will be fixed in https://github.com/axios/axios/pull/1395
         instance.defaults.headers.common.Authorization = `${tokenData.tokenType} ${tokenData.accessToken}`;
     };
 
