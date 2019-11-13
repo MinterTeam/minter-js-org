@@ -15,7 +15,7 @@ const encryptedMnemonic = 'd9d480907ab1ccf89b647d5d6152edd5d098026728f3e3f0984b1
 const encryptedMnemonicMinterIV = 'dd4ef5fc6a7b5faf123391b51dfcf7e3dc799392e848f46eafdbe82e7f725daf357c84baf30b30b4fa89e5431276cd674a494b1117a1ca213b807336a0647daeaffbff188e884e626b1b2ce005826f7b7fa9af8024498928426441ca83c1be666cbba64274ee8d0a4f6458a2d472aaa3';
 
 test('sha256 ethUtil length', () => {
-    const shaPasswordBuffer = sha256(rawPassword);
+    const shaPasswordBuffer = sha256(Buffer.from(rawPassword, 'utf-8'));
     const shaPasswordHex = shaPasswordBuffer.toString('hex');
     const shaPasswordBytes = aesjs.utils.hex.toBytes(shaPasswordHex);
     expect(shaPasswordBuffer).toHaveLength(32);
@@ -24,13 +24,13 @@ test('sha256 ethUtil length', () => {
 });
 
 test('sha256 ethUtil equal to crypto', () => {
-    const passShaEth = sha256(rawPassword).toString('hex');
+    const passShaEth = sha256(Buffer.from(rawPassword, 'utf-8')).toString('hex');
     const passShaCrypto = crypto.createHash('sha256').update(rawPassword, 'utf8').digest('hex');
     expect(passShaEth).toEqual(passShaCrypto);
 });
 
 test('to bytes aes-js', () => {
-    const shaPasswordBuffer = sha256(rawPassword);
+    const shaPasswordBuffer = sha256(Buffer.from(rawPassword, 'utf-8'));
     const shaPasswordHex = shaPasswordBuffer.toString('hex');
     const passwordBytes = aesjs.utils.hex.toBytes(shaPasswordHex);
     expect(passwordBytes).toEqual(shaPasswordBuffer.toJSON().data);
